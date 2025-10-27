@@ -1,69 +1,67 @@
-@title Ejemplo Completo de Documentación  
+# 📘 Documentación de decoradores `.jol`
 
-@paragraph Este archivo demuestra el uso de todos los decoradores disponibles para generar documentación HTML de forma estructurada, limpia y comprensible.  
+Los decoradores son comandos que transforman texto en estructuras HTML al ejecutar el archivo con:
 
-@-  
+```
+run -c /ruta/al/archivo.jol
+```
 
-@subtitle Información General  
+Cada decorador inicia con `@` y genera una etiqueta HTML específica.
 
-@info Esta sección explica cómo utilizar correctamente cada decorador dentro del sistema de documentación.  
+---
 
-@paragraph Los decoradores permiten transformar texto en etiquetas HTML automáticamente, facilitando la creación de documentación técnica.  
+## 🏷️ Decoradores de estructura
 
-@-  
+| Decorador | Descripción | HTML generado |
+|------------|--------------|----------------|
+| `@title` | Crea un título principal. | `<h1>{contenido}</h1>` |
+| `@subtitle` | Crea un subtítulo. | `<h3>{contenido}</h3>` |
+| `@paragraph` | Genera un párrafo. | `<p>{contenido}</p>` |
+| `@-` | Inserta una línea divisoria. | `<hr/>` |
+| `@*` | Inserta un comentario HTML. | `<!-- {contenido} -->` |
 
-@subtitle Lista de Comandos  
+---
 
-@list  
-@item @title → Crea un título principal.  
-@item @subtitle → Crea un subtítulo.  
-@item @paragraph → Agrega un párrafo descriptivo.  
-@item @list y @endlist → Inician y cierran una lista.  
-@item @item → Define un elemento dentro de una lista.  
-@item @code y @endcode → Muestran bloques de código formateado.  
-@item @info → Muestra un recuadro informativo.  
-@item @warn → Muestra un recuadro de advertencia.  
-@item @link → Crea un enlace externo.  
-@item @image → Inserta una imagen.  
-@item @quote → Muestra una cita o frase destacada.  
-@item @small → Agrega texto en tamaño pequeño.  
-@endlist  
+## 📋 Listas
 
-@-  
+| Decorador | Descripción | HTML generado |
+|------------|--------------|----------------|
+| `@list` | Inicia una lista. | `<ul>` |
+| `@endlist` | Finaliza una lista. | `</ul>` |
+| `@item` | Agrega un elemento a la lista. | `<li>{contenido}</li>` |
 
-@subtitle Ejemplo de Código  
+---
 
-@code  
-function saludo() {
-  console.log("Hola, mundo!");
-}
-@endcode  
+## 💻 Código
 
-@-  
+| Decorador | Descripción | HTML generado |
+|------------|--------------|----------------|
+| `@code` | Inicia un bloque de código. | `<pre><code>` |
+| `@endcode` | Finaliza el bloque de código. | `</code></pre>` |
 
-@subtitle Ejemplo de Enlace e Imagen  
+---
 
-@paragraph Puedes visitar el siguiente enlace para más información:  
-@link https://developer.mozilla.org/es/
+## ⚠️ Cajas de información
 
-@paragraph También puedes incluir imágenes ilustrativas:  
-@image https://placehold.co/600x400 
+| Decorador | Descripción | HTML generado |
+|------------|--------------|----------------|
+| `@info` | Muestra un cuadro informativo. | `<div class='info-box'>{contenido}</div>` |
+| `@warn` | Muestra una advertencia. | `<div class='warn-box'>{contenido}</div>` |
 
-@-  
+---
 
-@subtitle Ejemplo de Mensajes  
+## 🔗 Enlaces e imágenes
 
-@info Este es un mensaje informativo dentro de un recuadro azul.  
-@warn Este es un mensaje de advertencia que resalta información importante.  
+| Decorador | Descripción | HTML generado |
+|------------|--------------|----------------|
+| `@link` | Crea un enlace externo. | `<a href='{contenido}' target='_blank'>{contenido}</a>` |
+| `@image` | Inserta una imagen. | `<img src='{contenido}' alt='image'/>` |
 
-@-  
+---
 
-@subtitle Cita y Texto Pequeño  
+## 💬 Otros
 
-@quote "El código limpio siempre se escribe dos veces." — Robert C. Martin  
-
-@small Documento generado automáticamente con decoradores personalizados.  
-
-@-  
-
-@* Fin del ejemplo de demostración de decoradores HTML personalizados.  
+| Decorador | Descripción | HTML generado |
+|------------|--------------|----------------|
+| `@quote` | Crea una cita o bloque destacado. | `<blockquote>{contenido}</blockquote>` |
+| `@small` | Muestra texto en tamaño reducido. | `<small>{contenido}</small>` |
