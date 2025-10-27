@@ -1,18 +1,26 @@
-use std::{ env, fs::{ self, File }, io::{ BufRead, BufReader, BufWriter, Write }, ops::Index };
+use std::{
+    env,
+    fs::{ self, File },
+    io::{ BufRead, BufReader, BufWriter, Write },
+    ops::Index,
+    path::{ PathBuf },
+};
 
 fn main() {
     let mut commands: Vec<String> = vec!["-c".to_string()];
     let args: Vec<String> = env::args().collect();
     if args[1] == "run" {
         for (i, a) in args.iter().enumerate() {
-			println!("{}", a);
+            println!("{}", a);
             if a != "run" && i > 0 {
                 let _ = match verify_argument(&mut commands, args.clone(), i, a) {
                     Ok(item) => {
-						
-                        read_file(&item);
+                        let path: PathBuf = get_path_save(&item, "index.html");
+                        let path_str = path.to_str().unwrap_or("index.html");
+                        read_file(&item, path_str);
+
                         break;
-                    },
+                    }
                     Err(err) => panic!("Error to verify argument, {}", err),
                 };
             }
@@ -20,12 +28,21 @@ fn main() {
     }
 }
 
+fn get_path_save(path: &str, new_path: &str) -> PathBuf {
+    let mut original_path = PathBuf::from(path);
+
+    original_path.pop();
+    original_path.push(new_path);
+
+    return original_path;
+}
+
 fn write_on_file(file: &mut File, item_write: String) {
     let mut writer = BufWriter::new(file);
     writeln!(writer, "{}", item_write).unwrap();
 }
 
-fn read_file(path: &str) {
+fn read_file(path: &str, save_path: &str) {
     let items_language: Vec<&str> = vec![
         "@title",
         "@subtitle",
@@ -47,7 +64,7 @@ fn read_file(path: &str) {
 
     let file = fs::File::open(path).expect("Cannot read file");
     let reader = BufReader::new(file);
-    let mut file_to_write = File::create("index.html").expect("Error creating file");
+    let mut file_to_write = File::create(save_path).expect("Error creating file");
     making_styles(&mut file_to_write);
     for line in reader.lines() {
         let line = line.expect("Error reading line").trim().to_string();
