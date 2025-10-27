@@ -11,7 +11,6 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     if args[1] == "run" {
         for (i, a) in args.iter().enumerate() {
-            println!("{}", a);
             if a != "run" && i > 0 {
                 let _ = match verify_argument(&mut commands, args.clone(), i, a) {
                     Ok(item) => {
@@ -140,7 +139,6 @@ fn verify_argument(
         if item_arg.trim() == "" {
             panic!("Error: el valor esta mal escrito");
         }
-        println!("{}", item_arg);
         return Ok(String::from(item_arg));
     } else {
         println!("Command not exist: {}", a);
